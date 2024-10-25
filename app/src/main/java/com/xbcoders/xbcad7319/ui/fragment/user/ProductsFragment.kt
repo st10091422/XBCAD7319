@@ -1,5 +1,6 @@
 package com.xbcoders.xbcad7319.ui.fragment.user
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.xbcoders.xbcad7319.MainActivity
 import com.xbcoders.xbcad7319.R
 import com.xbcoders.xbcad7319.api.local.LocalUser
 import com.xbcoders.xbcad7319.api.model.Product
@@ -149,6 +151,8 @@ class ProductsFragment : Fragment() {
                     Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
+        } else {
+            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
         }
     }
 
