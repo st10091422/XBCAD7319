@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.admin.AdminProductsFragment"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginVertical="10dp">
+
+    <LinearLayout
+        android:id="@+id/location_redirect"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edit_text_background"
+        android:gravity="center_vertical"
+        android:layout_marginHorizontal="10dp"
+        >
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/search_products"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:inputType="text"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:hint="Search"
+            android:background="@drawable/search_background"
+            android:textSize="14sp"
+            android:drawableStart="@drawable/baseline_search_24"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/productRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/login_redirect"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/create"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Add Product"
+            android:textSize="24sp"
+            android:background="@drawable/button_background"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</LinearLayout>

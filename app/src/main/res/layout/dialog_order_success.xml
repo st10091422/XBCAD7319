@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Order Successful"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"/>
+
+    <!-- Order Number -->
+    <TextView
+        android:id="@+id/order_number_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your order number is : AB156CD"
+        android:paddingTop="8dp"
+        android:textSize="16sp"
+        android:layout_gravity="center"/>
+
+    <!-- Pay Now Button -->
+    <Button
+        android:id="@+id/pay_now_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PAY NOW"
+        android:textColor="@android:color/holo_red_dark"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
