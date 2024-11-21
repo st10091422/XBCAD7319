@@ -40,7 +40,7 @@ class CartItemAdapter(
                 }
             } else {
                 // Show the minus icon for decreasing quantity
-                decreaseImage.setImageResource(R.drawable.subtract) // Replace with your minus icon drawable
+                decreaseImage.setImageResource(R.drawable.ic_remove) // Replace with your minus icon drawable
                 decreaseImage.setOnClickListener {
                     itemActionListener(cartItem, CartAction.DECREASE)
                 }

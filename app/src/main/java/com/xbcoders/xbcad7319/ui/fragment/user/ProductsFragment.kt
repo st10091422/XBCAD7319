@@ -2,6 +2,8 @@ package com.xbcoders.xbcad7319.ui.fragment.user
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -19,6 +21,7 @@ import com.xbcoders.xbcad7319.api.model.Product
 import com.xbcoders.xbcad7319.api.seviceimplementations.ProductServiceImpl
 import com.xbcoders.xbcad7319.databinding.FragmentAdminProductsBinding
 import com.xbcoders.xbcad7319.databinding.FragmentProductsBinding
+import com.xbcoders.xbcad7319.ui.adapter.BannerAdapter
 import com.xbcoders.xbcad7319.ui.adapter.CategoryAdapter
 import com.xbcoders.xbcad7319.ui.adapter.ProductAdapter
 import retrofit2.Call
@@ -158,10 +161,48 @@ class ProductsFragment : Fragment() {
         }
     }
 
+    private var autoScrollHandler: Handler? = null
+    private var autoScrollRunnable: Runnable? = null
+
     private fun setupRecyclerView(products: MutableList<Product>) {
         productAdapter.updateProducts(products)
         binding.productRecyclerView.adapter = productAdapter
+        binding.flashSaleRecyclerView.adapter = productAdapter
         binding.productRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.flashSaleRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2) // Set layout manager for flashSaleRecyclerView
+
+        // Slideshow setup
+        val bannerImages = listOf( R.drawable.banner2, R.drawable.banner3)
+        val bannerAdapter = BannerAdapter(bannerImages)
+        binding.imageSlider.adapter = bannerAdapter
+
+        binding.dotsIndicator.attachTo(binding.imageSlider)
+
+        // Auto-scrolling
+        autoScrollHandler = Handler(Looper.getMainLooper())
+        autoScrollRunnable = Runnable {
+            val currentItem = binding.imageSlider.currentItem
+            binding.imageSlider.currentItem = (currentItem + 1) % bannerImages.size
+        }
+        startAutoScroll()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startAutoScroll()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAutoScroll()
+    }
+
+    private fun startAutoScroll() {
+        autoScrollHandler?.postDelayed(autoScrollRunnable!!, 8000) // Scroll every 8 seconds
+    }
+
+    private fun stopAutoScroll() {
+        autoScrollHandler?.removeCallbacks(autoScrollRunnable!!)
     }
 
     // Helper function to change the current fragment in the activity.
@@ -171,8 +212,6 @@ class ProductsFragment : Fragment() {
         // Marcos Maliki
         // https://stackoverflow.com/users/8108169/marcos-maliki
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.frame_layout, fragment)
-            .addToBackStack(null)
-            .commit()
+            .replace(R.id.frame_layout, fragment).addToBackStack(null).commit()
     }
 }

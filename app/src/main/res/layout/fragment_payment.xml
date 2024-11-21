@@ -1,104 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.user.PaymentFragment"
     android:orientation="vertical"
     android:layout_marginHorizontal="20dp"
-    android:layout_marginVertical="10dp">
+    android:layout_marginVertical="10dp"
+    tools:context=".ui.fragment.user.PaymentFragment">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:orientation="vertical">
-
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/nameOnCard"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:inputType="text"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            android:hint="Name on card"
-            android:background="@drawable/edit_text_background"
-            android:textSize="14sp"
-            />
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/cardNo"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:inputType="number"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            android:hint="Card Number"
-            android:background="@drawable/edit_text_background"
-            android:textSize="14sp"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/cvv"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:inputType="number"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:hint="CVV"
-                android:background="@drawable/edit_text_background"
-                android:textSize="14sp"
-                android:layout_marginEnd="5dp" />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/expiryDate"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:inputType="date"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:hint="Expiry Date"
-                android:background="@drawable/edit_text_background"
-                android:textSize="14sp"
-                android:layout_marginStart="5dp"/>
-
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                style="?android:attr/progressBarStyle"
-                android:layout_marginTop="20dp" />
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="Enter Card Details"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="end"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/payBtn"
+        <EditText
+            android:id="@+id/nameOnCard"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Pay"
-            android:textSize="24sp"
-            android:background="@drawable/button_background"
-            android:textColor="@color/white"
-            android:elevation="100dp"
-            />
+            android:background="@drawable/rounded_edittext_background"
+            android:hint="Name on card"
+            android:inputType="text"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/cardNo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edittext_background"
+            android:hint="Card Number"
+            android:inputType="number"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/cvv"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_edittext_background"
+                android:hint="CVV"
+                android:inputType="number"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/expiryDate"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_edittext_background"
+                android:hint="Expiry Date"
+                android:inputType="date"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/payBtn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button_background"
+        android:backgroundTint="@color/primary_color"
+        android:elevation="4dp"
+        android:text="Pay"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
 </LinearLayout>

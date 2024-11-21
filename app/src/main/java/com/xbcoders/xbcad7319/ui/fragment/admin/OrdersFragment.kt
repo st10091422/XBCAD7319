@@ -12,6 +12,7 @@ import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.xbcoders.xbcad7319.MainActivity
 import com.xbcoders.xbcad7319.R
 import com.xbcoders.xbcad7319.api.local.LocalUser
