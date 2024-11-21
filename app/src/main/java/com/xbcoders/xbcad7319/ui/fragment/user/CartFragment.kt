@@ -169,12 +169,7 @@ class CartFragment : Fragment() {
     }
 
     private fun displayCart(cart: List<CartItem>?) {
-        if (cart != null) {
-            cartAdapter = CartItemAdapter(cart.toMutableList()) { cartItem, action ->
-                handleCartItemAction(cartItem, action)
-                // Handle product click event
 
-            }
         if(cart != null){
             cartAdapter.updateCartItems(cart)
             binding.cartRecyclerView.adapter = cartAdapter

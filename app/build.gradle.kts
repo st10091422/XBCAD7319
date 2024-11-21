@@ -59,5 +59,6 @@ dependencies {
     testImplementation(libs.junit)
     implementation(libs.viewpager2)
     implementation(libs.dotsindicator)
+    implementation(libs.dotsindicator.v43)
 
 }
