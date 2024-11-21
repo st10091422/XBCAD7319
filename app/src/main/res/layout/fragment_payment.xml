@@ -72,13 +72,22 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/rounded_edittext_background"
-                android:hint="Expiry Date"
-                android:inputType="date"
+                android:hint="Expiry Date(MM/YY)"
+                android:digits="0123456789/"
+                android:inputType="text"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
                 android:textSize="14sp" />
 
         </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            style="?android:attr/progressBarStyle"
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
 

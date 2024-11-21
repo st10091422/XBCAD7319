@@ -113,7 +113,7 @@ class OrdersFragment : Fragment() {
     private fun showChangeStatusDialog(order: Order) {
         val context = binding.root.context
         val dialogView = LayoutInflater.from(context).inflate(R.layout.update_status_item, null)
-        val statusSwitch = dialogView.findViewById<Switch>(R.id.statusSwitch)
+        val statusSwitch = dialogView.findViewById<SwitchMaterial>(R.id.statusSwitch)
 
         // Set the initial state of the Switch based on the order status
         statusSwitch.isChecked = order.status == "Delivered"

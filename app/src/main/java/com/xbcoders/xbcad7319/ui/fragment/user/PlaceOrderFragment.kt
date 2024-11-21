@@ -94,15 +94,16 @@ class PlaceOrderFragment : Fragment() {
         binding.email.text = email
     }
 
-    private fun proceedToPayment(address: String) {
+    private fun proceedToPayment(order: Order) {
 
 
-        val paymentFragment = cartItems?.let { PaymentFragment.newInstance(it, address) }!!
+        val paymentFragment = order.let { PaymentFragment.newInstance(it) }
         changeCurrentFragment(paymentFragment)
 
     }
 
     private fun placeOrder() {
+        val userId = localUser.getUser()?.id // Replace with actual user ID
         binding.progressBar.visibility = View.VISIBLE
 
         val address = binding.address.text.toString()
@@ -114,9 +115,7 @@ class PlaceOrderFragment : Fragment() {
             binding.address.error = "Address is required"
             return
         }
-        // Prepare the Order data
-        val token = localUser.getToken()// Replace with actual token
-        val userId = localUser.getUser()?.id // Replace with actual user ID
+
         val totalPrice = cartItems!!.sumOf { it.product.price * it.quantity } // Calculate total price
         val order = userId?.let {
             Order(
@@ -128,36 +127,11 @@ class PlaceOrderFragment : Fragment() {
             )
         }
 
-        if (token != null && order != null) {
-            val tokenVal = "Bearer ${localUser.getToken()}"
-            orderServiceImpl.placeOrder(tokenVal, order).enqueue(object : Callback<Order> {
-                override fun onResponse(call: Call<Order>, response: Response<Order>) {
-                    if (response.isSuccessful) {
-                        // Handle success, navigate to order summary or show a success message
-                        //Toast.makeText(requireContext(), "Order placed successfully!", Toast.LENGTH_LONG).show()
-                        binding.progressBar.visibility = View.GONE
+        showOrderSuccessPopup(order!!)
 
-                        showOrderSuccessPopup(order.orderNo, address)
-                        // Optionally navigate to order summary or clear cart
-                    } else {
-                        binding.progressBar.visibility = View.GONE
-
-                        // Handle failure (error response)
-                        Toast.makeText(requireContext(), "Failed to place order: ${response.message()}", Toast.LENGTH_LONG).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<Order>, t: Throwable) {
-                    // Handle network failure
-                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_LONG).show()
-                }
-            })
-        } else {
-            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
-        }
     }
 
-    private fun showOrderSuccessPopup(orderNumber: String, address: String) {
+    private fun showOrderSuccessPopup(order: Order) {
         // Inflate the custom layout
         val inflater = LayoutInflater.from(requireContext())
         val view: View = inflater.inflate(R.layout.dialog_order_success, null)
@@ -166,7 +140,7 @@ class PlaceOrderFragment : Fragment() {
         val orderNumberTextView: TextView = view.findViewById(R.id.order_number_textview)
         val payNowButton: Button = view.findViewById(R.id.pay_now_button)
 
-        orderNumberTextView.text = "Your order number is : $orderNumber"
+        orderNumberTextView.text = "Your order number is : ${order.orderNo}"
 
         // Create an AlertDialog and set the custom view
         val dialog = AlertDialog.Builder(requireContext())
@@ -181,10 +155,12 @@ class PlaceOrderFragment : Fragment() {
         payNowButton.setOnClickListener {
             // Handle pay now action
             dialog.dismiss()
-            proceedToPayment(address)
+            proceedToPayment(order)
             // Navigate to payment or perform necessary action
         }
     }
+
+
 
     // Helper function to change the current fragment in the activity.
     private fun changeCurrentFragment(fragment: Fragment) {

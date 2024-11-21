@@ -106,6 +106,9 @@ class AdminProductsFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (!s.isNullOrEmpty()) {
                     filterProducts(s.toString())
+                } else{
+                    productAdapter.updateProducts(productList) // Update the existing adapter
+
                 }
             }
 

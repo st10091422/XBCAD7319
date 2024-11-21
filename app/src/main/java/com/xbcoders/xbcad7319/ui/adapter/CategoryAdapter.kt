@@ -71,4 +71,19 @@ class CategoryAdapter (
         categories.addAll(data)
         notifyDataSetChanged()
     }
+
+    // Method to set the selected item programmatically
+    fun setSelectedItem(position: Int) {
+        if (position in categories.indices) { // Ensure position is valid
+            val previousPosition = selectedPosition
+            selectedPosition = position
+
+            // Notify the adapter to refresh the views
+            notifyItemChanged(previousPosition)
+            notifyItemChanged(selectedPosition)
+
+            // Trigger the callback with the selected category
+            onCategorySelected(categories[selectedPosition])
+        }
+    }
 }

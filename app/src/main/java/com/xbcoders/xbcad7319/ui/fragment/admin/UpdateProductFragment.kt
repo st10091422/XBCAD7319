@@ -104,8 +104,6 @@ class UpdateProductFragment : Fragment() {
 
         localUser = LocalUser.getInstance(requireContext())
 
-        loadProductData()
-
         categoryAdapter = CategoryAdapter {
                 category -> selectedCategory = category
         }
@@ -114,6 +112,8 @@ class UpdateProductFragment : Fragment() {
 
         binding.categoryList.adapter = categoryAdapter
         binding.categoryList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        loadProductData()
 
         return binding.root
     }
@@ -130,6 +130,8 @@ class UpdateProductFragment : Fragment() {
             //.error(R.drawable.error_image) // Optional: Add an error image
             .into(binding.selectedImage)
         binding.productQuantity.setText(product?.quantity.toString())
+        Log.d("setSelectedItem", "${categories.indexOf(product?.category)}")
+        categoryAdapter.setSelectedItem(categories.indexOf(product?.category))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
