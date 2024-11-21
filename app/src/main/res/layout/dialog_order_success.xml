@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:gravity="center">
 
     <!-- Title -->
     <TextView
@@ -12,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Order Successful"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"/>
+        android:textColor="@color/primary_color"
+        android:layout_marginBottom="16dp"/>
 
     <!-- Order Number -->
     <TextView
@@ -22,9 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Your order number is : AB156CD"
-        android:paddingTop="8dp"
-        android:textSize="16sp"
-        android:layout_gravity="center"/>
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="24dp"/>
 
     <!-- Pay Now Button -->
     <Button
@@ -32,9 +33,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="PAY NOW"
-        android:textColor="@android:color/holo_red_dark"
-        android:background="?android:attr/selectableItemBackground"
-        android:layout_gravity="end"
-        android:layout_marginTop="16dp"/>
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_button_background"
+        android:backgroundTint="@color/primary_color"
+        android:elevation="4dp"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="12dp"/>
 
 </LinearLayout>

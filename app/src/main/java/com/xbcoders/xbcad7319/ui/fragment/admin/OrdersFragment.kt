@@ -3,22 +3,20 @@ package com.xbcoders.xbcad7319.ui.fragment.admin
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.xbcoders.xbcad7319.MainActivity
 import com.xbcoders.xbcad7319.R
 import com.xbcoders.xbcad7319.api.local.LocalUser
 import com.xbcoders.xbcad7319.api.model.Order
 import com.xbcoders.xbcad7319.api.seviceimplementations.OrderServiceImpl
 import com.xbcoders.xbcad7319.databinding.FragmentOrdersBinding
-import com.xbcoders.xbcad7319.databinding.FragmentUserOrdersBinding
 import com.xbcoders.xbcad7319.ui.adapter.OrderAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,9 +42,8 @@ class OrdersFragment : Fragment() {
     private var orders: List<Order>? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentOrdersBinding.inflate(inflater, container, false)
 
         // Fetch user orders
@@ -63,8 +60,7 @@ class OrdersFragment : Fragment() {
 
         if (token != null) {
             val tokenVal = "Bearer ${localUser.getToken()}"
-            orderServiceImpl.getOrders(tokenVal).enqueue(object :
-                Callback<List<Order>> {
+            orderServiceImpl.getOrders(tokenVal).enqueue(object : Callback<List<Order>> {
                 override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
                     if (response.isSuccessful) {
                         orders = response.body()
@@ -88,12 +84,17 @@ class OrdersFragment : Fragment() {
                 }
             })
         } else {
-            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
+            startActivity(
+                Intent(
+                    requireContext(),
+                    MainActivity::class.java
+                )
+            ) // Restart the MainActivity
         }
     }
 
     private fun displayOrders(orders: List<Order>?) {
-        if(orders != null){
+        if (orders != null) {
             orderAdapter = OrderAdapter(orders) { order ->
                 // Handle product click event
                 Toast.makeText(requireContext(), "Selected: ${order.orderNo}", Toast.LENGTH_SHORT)
@@ -111,7 +112,8 @@ class OrdersFragment : Fragment() {
     private fun showChangeStatusDialog(order: Order) {
         val context = binding.root.context
         val dialogView = LayoutInflater.from(context).inflate(R.layout.update_status_item, null)
-        val statusSwitch = dialogView.findViewById<Switch>(R.id.statusSwitch)
+        val statusSwitch =
+            dialogView.findViewById<SwitchMaterial>(R.id.statusSwitch) // Use SwitchMaterial
 
         // Set the initial state of the Switch based on the order status
         statusSwitch.isChecked = order.status == "Delivered"
@@ -121,16 +123,13 @@ class OrdersFragment : Fragment() {
             statusSwitch.isEnabled = false
         }
 
-        val dialog = AlertDialog.Builder(context)
-            .setView(dialogView)
-            .setPositiveButton("OK") { _, _ ->
-                // Get the new status based on the switch state
-                val newStatus = if (statusSwitch.isChecked) "Delivered" else "Pending"
-                // Call the function to update the order status
-                updateOrderStatus(order.id, newStatus)
-            }
-            .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
-            .create()
+        val dialog =
+            AlertDialog.Builder(context).setView(dialogView).setPositiveButton("OK") { _, _ ->
+                    // Get the new status based on the switch state
+                    val newStatus = if (statusSwitch.isChecked) "Delivered" else "Pending"
+                    // Call the function to update the order status
+                    updateOrderStatus(order.id, newStatus)
+                }.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }.create()
 
         dialog.show()
     }
@@ -144,28 +143,46 @@ class OrdersFragment : Fragment() {
             val tokenVal = "Bearer $token"
 
             val ord = Order(
-                status= newStatus
+                status = newStatus
             )
             // Call your OrderService implementation to update the order status
-            orderServiceImpl.updateOrderStatus(tokenVal, orderId, ord).enqueue(object : Callback<Void> {
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if (response.isSuccessful) {
-                        Toast.makeText(requireContext(), "Order status updated successfully", Toast.LENGTH_SHORT).show()
-                        // Optionally, refresh the orders list or update the local list
-                        fetchUserOrders() // Refresh orders to reflect the changes
-                    } else {
-                        Log.d("orders", "Failed to fetch orders: ${response.message()} ${response.code()}")
+            orderServiceImpl.updateOrderStatus(tokenVal, orderId, ord)
+                .enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Order status updated successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            // Optionally, refresh the orders list or update the local list
+                            fetchUserOrders() // Refresh orders to reflect the changes
+                        } else {
+                            Log.d(
+                                "orders",
+                                "Failed to fetch orders: ${response.message()} ${response.code()}"
+                            )
 
-                        Toast.makeText(requireContext(), "Failed to update status: ${response.message()}", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Failed to update status: ${response.message()}",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
-                }
 
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_LONG).show()
-                }
-            })
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                })
         } else {
-            startActivity(Intent(requireContext(), MainActivity::class.java)) // Restart the MainActivity
+            startActivity(
+                Intent(
+                    requireContext(),
+                    MainActivity::class.java
+                )
+            ) // Restart the MainActivity
         }
     }
 

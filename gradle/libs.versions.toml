@@ -1,5 +1,7 @@
 [versions]
-agp = "8.5.2"
+agp = "8.7.2"
+dotsindicator = "5.0"
+glide = "4.16.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -9,9 +11,17 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.1.4"
+mockitoCore = "4.0.0"
+powerspinner = "1.2.4"
+preference = "1.2.1"
+viewpager2Version = "1.1.0"
+viewpagerdotsindicator = "4.1.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-preference = { module = "androidx.preference:preference", version.ref = "preference" }
+dotsindicator = { module = "com.tbuonomo:dotsindicator", version.ref = "dotsindicator" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -19,6 +29,10 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+powerspinner = { module = "com.github.skydoves:powerspinner", version.ref = "powerspinner" }
+viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2Version" }
+viewpagerdotsindicator = { module = "com.tbuonomo.andrui:viewpagerdotsindicator", version.ref = "viewpagerdotsindicator" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

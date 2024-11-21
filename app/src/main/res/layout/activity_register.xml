@@ -1,74 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.RegisterActivity"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:paddingVertical="20dp">
+    android:background="@drawable/login_background"
+    android:padding="20dp"
+    tools:context=".ui.activity.RegisterActivity">
 
     <ImageView
         android:id="@+id/property_type_icon"
         android:layout_width="190dp"
         android:layout_height="190dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/em_logo"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/usernameEditText"
-        android:layout_width="match_parent"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/usernameCardView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Username"
-        android:padding="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/edit_text_background"/>
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/property_type_icon"
+        app:layout_constraintWidth_percent="0.8"
+        app:cardBackgroundColor="#FFFFFF">
 
-    <EditText
-        android:id="@+id/emailEditText"
-        android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeColor="@android:color/transparent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/usernameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/emailCardView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:padding="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/edit_text_background"/>
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameCardView"
+        app:layout_constraintWidth_percent="0.8"
+        app:cardBackgroundColor="#FFFFFF">
 
-    <EditText
-        android:id="@+id/passwordEditText"
-        android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeColor="@android:color/transparent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/passwordCardView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="@drawable/edit_text_background"/>
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailCardView"
+        app:layout_constraintWidth_percent="0.8"
+        app:cardBackgroundColor="#FFFFFF">
 
-    <Button
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            app:passwordToggleEnabled="true"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeColor="@android:color/transparent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Register"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/button_background"/>
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordCardView"
+        app:layout_constraintWidth_percent="0.8" />
 
     <TextView
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="or"
-        android:textSize="20sp"
-        android:layout_marginBottom="20dp"/>
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerButton" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/loginrButton"
-        android:layout_width="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Sign in"
-        android:background="@drawable/button_background"/>
-</LinearLayout>
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+        app:layout_constraintWidth_percent="0.8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

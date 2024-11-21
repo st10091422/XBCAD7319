@@ -4,13 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.xbcoders.xbcad7319.R
 
-class CategoryAdapter (
-    private val categories: List<String>,
-    private val onCategorySelected: (String) -> Unit
+class CategoryAdapter(
+    private val categories: List<String>, private val onCategorySelected: (String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     private var selectedPosition = -1 // Track the currently selected position
@@ -35,26 +33,16 @@ class CategoryAdapter (
         fun bind(category: String) {
             categoryName.text = category
 
-            // Change background color based on selection
-//            itemView.setBackgroundColor(
-//                if (adapterPosition == selectedPosition)
-//                    ContextCompat.getColor(itemView.context, R.color.primary)
-//                else
-//                    ContextCompat.getColor(itemView.context, android.R.color.transparent) // Default background
-//            )
-
             itemView.setBackgroundResource(
-                if (adapterPosition == selectedPosition)
-                    R.color.primary // Use color resource for selected position
-                else
-                    R.drawable.edit_text_background // Use drawable for default background
+                if (adapterPosition == selectedPosition) R.color.primary // Use color resource for selected position
+                else R.drawable.edit_text_background // Use drawable for default background
             )
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_category, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
         return CategoryViewHolder(view)
     }
 
