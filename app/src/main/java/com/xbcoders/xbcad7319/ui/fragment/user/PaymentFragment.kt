@@ -56,10 +56,28 @@ class PaymentFragment : Fragment() {
         orderServiceImpl = OrderServiceImpl()
 
 
+        binding.payBtn.setOnClickListener {
+            pay()
+        }
 
         return binding.root
     }
 
+    private fun pay() {
+        changeCurrentFragment(UserOrdersFragment())
+    }
+
+    // Helper function to change the current fragment in the activity.
+    private fun changeCurrentFragment(fragment: Fragment) {
+        // This method was adapted from stackoverflow
+        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
+        // Marcos Maliki
+        // https://stackoverflow.com/users/8108169/marcos-maliki
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
     companion object {
 
         const val CART_ITEMS_ARG = "product"

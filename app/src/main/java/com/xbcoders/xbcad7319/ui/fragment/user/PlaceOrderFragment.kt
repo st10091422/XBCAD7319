@@ -62,8 +62,8 @@ class PlaceOrderFragment : Fragment() {
         orderServiceImpl = OrderServiceImpl()
 
         binding.productsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        cartAdapter = cartItems?.let { CartItemAdapter(it) { cartItem, action ->  } }!!
+        cartAdapter = CartItemAdapter { cartItem, action ->  }
+        cartItems?.let { cartAdapter.updateCartItems(it) }
 
         binding.productsRecyclerView.adapter = cartAdapter
 
@@ -103,9 +103,13 @@ class PlaceOrderFragment : Fragment() {
     }
 
     private fun placeOrder() {
+        binding.progressBar.visibility = View.VISIBLE
+
         val address = binding.address.text.toString()
 
         if(address.isEmpty()){
+            binding.progressBar.visibility = View.GONE
+
             Toast.makeText(requireContext(), "Enter an address", Toast.LENGTH_SHORT).show()
             binding.address.error = "Address is required"
             return
@@ -131,9 +135,13 @@ class PlaceOrderFragment : Fragment() {
                     if (response.isSuccessful) {
                         // Handle success, navigate to order summary or show a success message
                         //Toast.makeText(requireContext(), "Order placed successfully!", Toast.LENGTH_LONG).show()
+                        binding.progressBar.visibility = View.GONE
+
                         showOrderSuccessPopup(order.orderNo, address)
                         // Optionally navigate to order summary or clear cart
                     } else {
+                        binding.progressBar.visibility = View.GONE
+
                         // Handle failure (error response)
                         Toast.makeText(requireContext(), "Failed to place order: ${response.message()}", Toast.LENGTH_LONG).show()
                     }

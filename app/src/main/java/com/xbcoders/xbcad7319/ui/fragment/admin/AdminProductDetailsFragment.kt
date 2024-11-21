@@ -60,6 +60,8 @@ class AdminProductDetailsFragment : Fragment() {
 
         binding.productPrice.text = "R ${product?.price}"
 
+        binding.quantityText.text = product?.quantity.toString()
+
         Glide.with(requireContext())
             .load(product?.imageUrl) // Load the image from the URL
             .placeholder(R.drawable.baseline_image_24) // Optional: Add a placeholder

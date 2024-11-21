@@ -75,16 +75,18 @@ class AdminProductsFragment : Fragment() {
 
         filteredProductList = mutableListOf()
 
-        productAdapter = ProductAdapter(mutableListOf()) { product ->
+        productAdapter = ProductAdapter { product ->
             // Handle product click event
-            Toast.makeText(requireContext(), "Selected: ${product.name}", Toast.LENGTH_SHORT).show()
+
+            val detailsFragment = AdminProductDetailsFragment.newInstance(product)
+            changeCurrentFragment(detailsFragment)
         }
 
-        categoryAdapter = CategoryAdapter(categories) {
+        categoryAdapter = CategoryAdapter() {
                 category ->
         }
 
-
+        categoryAdapter.updateCategories(categories)
 
         fetchProducts()
 
@@ -148,14 +150,7 @@ class AdminProductsFragment : Fragment() {
 
 
     private fun setupRecyclerView(products: List<Product>) {
-        productAdapter = ProductAdapter(products.toMutableList()) { product ->
-            // Handle product click event
-            Toast.makeText(requireContext(), "Selected: ${product.name}", Toast.LENGTH_SHORT).show()
-
-            val detailsFragment = AdminProductDetailsFragment.newInstance(product)
-            changeCurrentFragment(AdminProductDetailsFragment.newInstance(product))
-
-        }
+        productAdapter.updateProducts(products)
         binding.productRecyclerView.adapter = productAdapter
         binding.productRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
     }

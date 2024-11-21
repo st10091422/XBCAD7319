@@ -11,10 +11,11 @@ import com.xbcoders.xbcad7319.R
 import com.xbcoders.xbcad7319.api.model.Product
 
 class ProductAdapter(
-    private val productList: MutableList<Product>,
     private val itemClickListener: (Product) -> Unit // Lambda function for item click
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
+
+    private val productList: MutableList<Product> = mutableListOf()
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val productName: TextView = itemView.findViewById(R.id.product_name)
         private val productPrice: TextView = itemView.findViewById(R.id.product_price)

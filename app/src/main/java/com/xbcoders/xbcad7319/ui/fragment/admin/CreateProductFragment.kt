@@ -95,9 +95,11 @@ class CreateProductFragment : Fragment() {
 
         localUser = LocalUser.getInstance(requireContext())
 
-        categoryAdapter = CategoryAdapter(categories) {
+        categoryAdapter = CategoryAdapter {
             category -> selectedCategory = category
         }
+
+        categoryAdapter.updateCategories(categories)
 
         binding.categoryList.adapter = categoryAdapter
         binding.categoryList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -179,6 +181,7 @@ class CreateProductFragment : Fragment() {
         val productJson = Gson().toJson(product)
         val productRequestBody = RequestBody.create("application/json".toMediaTypeOrNull(), productJson)
 
+        binding.progressBar.visibility = View.VISIBLE
         // Call the createProduct method from ProductServiceImpl
         val token = localUser.getToken() // Get the token
 
@@ -188,8 +191,12 @@ class CreateProductFragment : Fragment() {
                 Callback<Product> {
                 override fun onResponse(call: Call<Product>, response: Response<Product>) {
                     if (response.isSuccessful) {
+                        binding.progressBar.visibility = View.GONE
                         Toast.makeText(requireContext(), "Product added: ${response.body()?.name}", Toast.LENGTH_SHORT).show()
+                        changeCurrentFragment(AdminProductsFragment())
                     } else {
+                        binding.progressBar.visibility = View.GONE
+
                         Toast.makeText(requireContext(), "Error: ${response.message()}", Toast.LENGTH_SHORT).show()
                         Log.d("", "Failed to create product: ${response.message()} ${response.code()}")
                     }
@@ -220,6 +227,19 @@ class CreateProductFragment : Fragment() {
             null
         }
     }
+
+    // Helper function to change the current fragment in the activity.
+    private fun changeCurrentFragment(fragment: Fragment) {
+        // This method was adapted from stackoverflow
+        // https://stackoverflow.com/questions/52318195/how-to-change-fragment-kotlin
+        // Marcos Maliki
+        // https://stackoverflow.com/users/8108169/marcos-maliki
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_layout, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // Clear binding reference to prevent memory leaks

@@ -73,7 +73,7 @@ class ProductsFragment : Fragment() {
 
         apiService = ProductServiceImpl()
 
-        categoryAdapter = CategoryAdapter(categories) {
+        categoryAdapter = CategoryAdapter {
             category -> if(category ==  "All"){
             productAdapter.updateProducts(productList) // Update the existing adapter
         } else{
@@ -81,9 +81,11 @@ class ProductsFragment : Fragment() {
             }
         }
 
-        productAdapter = ProductAdapter(mutableListOf()) { product ->
-            // Handle product click event
-            Toast.makeText(requireContext(), "Selected: ${product.name}", Toast.LENGTH_SHORT).show()
+        categoryAdapter.updateCategories(categories)
+
+        productAdapter = ProductAdapter() { product ->
+            val paymentFragment = ProductDetailsFragment.newInstance(product)
+            changeCurrentFragment(paymentFragment)
         }
 
         productList = listOf<Product>()
@@ -157,14 +159,7 @@ class ProductsFragment : Fragment() {
     }
 
     private fun setupRecyclerView(products: MutableList<Product>) {
-        productAdapter = ProductAdapter(products) { product ->
-            // Handle product click event
-            Toast.makeText(requireContext(), "Selected: ${product.name}", Toast.LENGTH_SHORT).show()
-
-            val paymentFragment = ProductDetailsFragment.newInstance(product)
-            changeCurrentFragment(paymentFragment)
-
-        }
+        productAdapter.updateProducts(products)
         binding.productRecyclerView.adapter = productAdapter
         binding.productRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
     }

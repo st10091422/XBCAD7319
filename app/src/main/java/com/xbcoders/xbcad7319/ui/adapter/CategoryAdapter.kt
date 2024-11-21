@@ -7,12 +7,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.xbcoders.xbcad7319.R
+import com.xbcoders.xbcad7319.api.model.Product
 
 class CategoryAdapter (
-    private val categories: List<String>,
     private val onCategorySelected: (String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
+
+    private val categories: MutableList<String> = mutableListOf()
     private var selectedPosition = -1 // Track the currently selected position
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -63,4 +65,10 @@ class CategoryAdapter (
     }
 
     override fun getItemCount(): Int = categories.size
+
+    fun updateCategories(data: List<String>){
+        categories.clear()
+        categories.addAll(data)
+        notifyDataSetChanged()
+    }
 }

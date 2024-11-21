@@ -49,6 +49,13 @@ class OrdersFragment : Fragment() {
     ): View? {
         _binding = FragmentOrdersBinding.inflate(inflater, container, false)
 
+        orderAdapter = OrderAdapter { order ->
+            // Handle product click event
+//            Toast.makeText(requireContext(), "Selected: ${order.orderNo}", android.widget.Toast.LENGTH_SHORT)
+//                .show()
+
+            showChangeStatusDialog(order)
+        }
         // Fetch user orders
         fetchUserOrders()
 
@@ -94,13 +101,7 @@ class OrdersFragment : Fragment() {
 
     private fun displayOrders(orders: List<Order>?) {
         if(orders != null){
-            orderAdapter = OrderAdapter(orders) { order ->
-                // Handle product click event
-                Toast.makeText(requireContext(), "Selected: ${order.orderNo}", Toast.LENGTH_SHORT)
-                    .show()
-
-                showChangeStatusDialog(order)
-            }
+            orderAdapter.updateOrders(orders)
             binding.orderRecyclerView.adapter = orderAdapter
             binding.orderRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 

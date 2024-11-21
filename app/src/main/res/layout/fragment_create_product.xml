@@ -179,6 +179,15 @@
                 android:textSize="14sp"
                 android:layout_marginBottom="20dp"
                 />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                style="?android:attr/progressBarStyle"
+                android:layout_marginTop="20dp" />
         </LinearLayout>
     </ScrollView>
     <LinearLayout

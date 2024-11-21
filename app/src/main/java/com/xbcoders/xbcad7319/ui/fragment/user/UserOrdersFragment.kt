@@ -47,6 +47,11 @@ class UserOrdersFragment : Fragment() {
     ): View {
         _binding = FragmentUserOrdersBinding.inflate(inflater, container, false)
 
+        orderAdapter = OrderAdapter { order ->
+            // Handle product click event
+            Toast.makeText(requireContext(), "Selected: ${order.orderNo}", Toast.LENGTH_SHORT)
+                .show()
+        }
         // Fetch user orders
         fetchUserOrders()
 
@@ -92,11 +97,7 @@ class UserOrdersFragment : Fragment() {
 
     private fun displayOrders(orders: List<Order>?) {
         if(orders != null){
-            orderAdapter = OrderAdapter(orders) { order ->
-                // Handle product click event
-                Toast.makeText(requireContext(), "Selected: ${order.orderNo}", Toast.LENGTH_SHORT)
-                    .show()
-            }
+            orderAdapter.updateOrders(orders)
             binding.orderRecyclerView.adapter = orderAdapter
             binding.orderRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 

@@ -57,7 +57,7 @@ class CartFragment : Fragment() {
 
         binding.cartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        cartAdapter = CartItemAdapter(cartItems) { cartItem, action -> handleCartItemAction(cartItem, action) }
+        cartAdapter = CartItemAdapter { cartItem, action -> handleCartItemAction(cartItem, action) }
 
         binding.cartRecyclerView.adapter = cartAdapter
 
@@ -170,10 +170,7 @@ class CartFragment : Fragment() {
 
     private fun displayCart(cart: List<CartItem>?) {
         if(cart != null){
-            cartAdapter = CartItemAdapter(cart.toMutableList()) { cartItem, action -> handleCartItemAction(cartItem, action)
-                // Handle product click event
-
-            }
+            cartAdapter.updateCartItems(cart)
             binding.cartRecyclerView.adapter = cartAdapter
             binding.cartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         }

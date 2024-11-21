@@ -106,9 +106,11 @@ class UpdateProductFragment : Fragment() {
 
         loadProductData()
 
-        categoryAdapter = CategoryAdapter(categories) {
+        categoryAdapter = CategoryAdapter {
                 category -> selectedCategory = category
         }
+
+        categoryAdapter.updateCategories(categories)
 
         binding.categoryList.adapter = categoryAdapter
         binding.categoryList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -193,6 +195,9 @@ class UpdateProductFragment : Fragment() {
             RequestBody.create("image/*".toMediaTypeOrNull(), tempFile)
         )
 
+        binding.progressBar.visibility = View.VISIBLE
+
+
         val productJson = Gson().toJson(product)
         val productRequestBody = RequestBody.create("application/json".toMediaTypeOrNull(), productJson)
 
@@ -203,8 +208,12 @@ class UpdateProductFragment : Fragment() {
                 Callback<Product> {
                 override fun onResponse(call: Call<Product>, response: Response<Product>) {
                     if (response.isSuccessful) {
+                        binding.progressBar.visibility = View.GONE
+
                         Toast.makeText(requireContext(), "Product updated: ${response.body()?.name}", Toast.LENGTH_SHORT).show()
                     } else {
+                        binding.progressBar.visibility = View.GONE
+
                         Toast.makeText(requireContext(), "Error: ${response.message()}", Toast.LENGTH_SHORT).show()
                         Log.d("UpdateProductFragment", "Failed to update product: ${response.message()} ${response.code()}")
                     }

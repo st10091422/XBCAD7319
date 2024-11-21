@@ -12,9 +12,11 @@ import com.xbcoders.xbcad7319.api.model.CartItem
 import com.xbcoders.xbcad7319.ui.CartAction
 
 class CartItemAdapter(
-    private var cartItems: MutableList<CartItem>,
     private val itemActionListener: (CartItem, CartAction) -> Unit
 ) : RecyclerView.Adapter<CartItemAdapter.CartViewHolder>() {
+
+
+    private var cartItems: MutableList<CartItem> = mutableListOf()
 
     inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val productName: TextView = itemView.findViewById(R.id.product_name)

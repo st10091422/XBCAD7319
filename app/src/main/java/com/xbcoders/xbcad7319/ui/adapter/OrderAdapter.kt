@@ -13,9 +13,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class OrderAdapter (private val orders: List<Order>,
-                    private val onItemClick: (Order) -> Unit) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
-
+class OrderAdapter (private val onItemClick: (Order) -> Unit) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
+    private val orders: MutableList<Order> = mutableListOf()
     inner class OrderViewHolder(private val binding: ItemOrderBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(order: Order) {
 
@@ -57,5 +56,11 @@ class OrderAdapter (private val orders: List<Order>,
         val formattedDate = dateFormat.format(date)
         // Insert a newline between the day and the month
         return formattedDate.replace(" ", "\n")
+    }
+
+    fun updateOrders(data: List<Order>) {
+        orders.clear()
+        orders.addAll(data)
+        notifyDataSetChanged()
     }
 }
